@@ -31,22 +31,25 @@ Size - int
 
 import random
 import math
+import pandas as pd
 
 star_list = []
 
 number_of_stars = 100 #pull data from setting page
 
 star_max_size = 10
-star_colors = ["white"] #star colors data comes from settings page, the shade of that color 
+star_colors = ['white', 'red'] #star colors data comes from settings page, the shade of that color 
 ex = 2
 
 class Star:
     def __init__(self, x, y):
         self.x = x
         self.y = y
+        self.location = (x,y)
         self.size = math.floor(random.random() ** ex * star_max_size) + 1
         self.amp = random.randint(self.size, star_max_size)
-        self.color = star_colors[random.randint(0, len(star_colors) - 1)]
+        #self.color = star_colors[random.randint(0, len(star_colors) - 1)]
+        self.color = 'red'
 
     def cluster(self):
         pass #test without first
@@ -75,12 +78,19 @@ def is_in_circle(x, y):
     return x ** 2 - x*(Xmin + Xmax) - y*(Ymin + Ymax) + y ** 2 <= confines
 
 
-sizes = []
+sizes, colors = [], []
 test = star_placer()
+x_, y_ = [], []
+star_data = []
 for item in test:
+    star_data.append([item.x, item.y, item.size, item.color])
+    x_.append(item.x)
+    y_.append(item.y)
     sizes.append(item.size)
-print(sum(sizes))
-print(sizes)
+    colors.append(item.color)
 
-# without fix sum = 458
-# with fix sum = 241
+print(star_data)
+
+### Not Working ###
+#df = pd.DataFrame(star_data[0], star_data[1], columns=['a', 'b', 'c'])
+#ax1 = df.plot.scatter(x='length', y='width', c='red')
