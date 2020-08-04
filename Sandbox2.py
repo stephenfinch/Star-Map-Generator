@@ -4,8 +4,8 @@ from beta_logic import *
 
 pygame.init()
 
-DISPLAYSURF = pygame.display.set_mode((900, 900), 0, 32)
-pygame.display.set_caption('Sandbox')
+DISPLAYSURF = pygame.display.set_mode((screen_x, screen_y), 0, 32)
+pygame.display.set_caption('StarMap')
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -14,7 +14,7 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
 DISPLAYSURF.fill(BLACK)
-pygame.draw.circle(DISPLAYSURF, WHITE, (450, 450), 400, 1)
+pygame.draw.circle(DISPLAYSURF, (43, 67, 244), (450, 450), 400, 1)
 
 
 star_data = star_placer()

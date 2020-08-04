@@ -35,18 +35,18 @@ import math
 
 screen_x, screen_y = 900, 900
 star_list = []
-number_of_stars = 100 
-star_max_size = 5
+number_of_stars = 2000
+star_max_size = 4
 star_colors = ['white', 'red', 'blue', 'yellow'] #star colors data comes from settings page, the shade of that color 
 star_colors_RGB = [(43, 67, 244), (255, 255, 255), (255, 0, 0), (0, 255, 0), (0, 0, 255)]
-ex = 2
+ex = 20
 
 class Star:
     def __init__(self, x, y):
         self.x = x
         self.y = y
         self.location = (x,y)
-        self.size = math.floor(random.random() ** ex * star_max_size) + 1
+        self.size = int(math.floor(random.random() ** ex * star_max_size))
         self.amp = random.randint(self.size, star_max_size)
         #self.color = star_colors_RGB[random.randint(0, len(star_colors_RGB) - 1)]
         self.color = (43, 67, 244)
@@ -59,19 +59,17 @@ def star_placer():
     stars_added = 0
     while stars_added < number_of_stars:
         x, y = random.randint(0, screen_x), random.randint(0, screen_y)
-        #if is_in_circle(x,y):
-        star_list.append(Star(x,y))
-        stars_added += 1
+        if is_in_circle(x,y):
+            star_list.append(Star(x,y))
+            stars_added += 1
     return star_list
 
 
 r = 390 #raduis
-Xmin = Ymin = 5
-Xmax = Ymax = 795
+Xcenter = Ycenter = 450
 
 def is_in_circle(x, y):
-    confines = r ** 2 - (Xmin ** 2 + Xmax ** 2 + Ymin ** 2 + Ymax ** 2)
-    test = x ** 2 - x*(Xmin + Xmax) - y*(Ymin + Ymax) + y ** 2 <= confines
+    test = (x - Xcenter) ** 2 + (y - Ycenter) ** 2 <= r ** 2
     return test
 
 
