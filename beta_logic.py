@@ -31,14 +31,14 @@ Size - int
 
 import random
 import math
-import pandas as pd
 
+
+screen_x, screen_y = 900, 900
 star_list = []
-
-number_of_stars = 100 #pull data from setting page
-
-star_max_size = 10
-star_colors = ['white', 'red'] #star colors data comes from settings page, the shade of that color 
+number_of_stars = 100 
+star_max_size = 5
+star_colors = ['white', 'red', 'blue', 'yellow'] #star colors data comes from settings page, the shade of that color 
+star_colors_RGB = [(43, 67, 244), (255, 255, 255), (255, 0, 0), (0, 255, 0), (0, 0, 255)]
 ex = 2
 
 class Star:
@@ -48,24 +48,20 @@ class Star:
         self.location = (x,y)
         self.size = math.floor(random.random() ** ex * star_max_size) + 1
         self.amp = random.randint(self.size, star_max_size)
-        #self.color = star_colors[random.randint(0, len(star_colors) - 1)]
-        self.color = 'red'
+        #self.color = star_colors_RGB[random.randint(0, len(star_colors_RGB) - 1)]
+        self.color = (43, 67, 244)
 
     def cluster(self):
         pass #test without first
 
 
-
-
 def star_placer():
     stars_added = 0
     while stars_added < number_of_stars:
-        x, y = random.randint(0, 800), random.randint(0, 800)
+        x, y = random.randint(0, screen_x), random.randint(0, screen_y)
         #if is_in_circle(x,y):
-        temp_star = Star(x,y)
-        # add temp star to image -- image += Star(x,y)
+        star_list.append(Star(x,y))
         stars_added += 1
-        star_list.append(temp_star)
     return star_list
 
 
@@ -75,22 +71,7 @@ Xmax = Ymax = 795
 
 def is_in_circle(x, y):
     confines = r ** 2 - (Xmin ** 2 + Xmax ** 2 + Ymin ** 2 + Ymax ** 2)
-    return x ** 2 - x*(Xmin + Xmax) - y*(Ymin + Ymax) + y ** 2 <= confines
+    test = x ** 2 - x*(Xmin + Xmax) - y*(Ymin + Ymax) + y ** 2 <= confines
+    return test
 
 
-sizes, colors = [], []
-test = star_placer()
-x_, y_ = [], []
-star_data = []
-for item in test:
-    star_data.append([item.x, item.y, item.size, item.color])
-    x_.append(item.x)
-    y_.append(item.y)
-    sizes.append(item.size)
-    colors.append(item.color)
-
-print(star_data)
-
-### Not Working ###
-#df = pd.DataFrame(star_data[0], star_data[1], columns=['a', 'b', 'c'])
-#ax1 = df.plot.scatter(x='length', y='width', c='red')
