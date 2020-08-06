@@ -31,8 +31,10 @@ Size - int
 
 import random
 import math
+from settings_data import *
 
-
+field_buffer = 50
+field_x, field_y = 800, 800
 screen_x, screen_y = 900, 900
 star_list = []
 number_of_stars = 2000
@@ -47,6 +49,7 @@ class Star:
         self.y = y
         self.location = (x,y)
         self.size = int(math.floor(random.random() ** ex * star_max_size))
+        if self.size == 1: self.size = 0
         self.amp = random.randint(self.size, star_max_size)
         #self.color = star_colors_RGB[random.randint(0, len(star_colors_RGB) - 1)]
         self.color = (43, 67, 244)
