@@ -8,13 +8,15 @@ DISPLAYSURF = pygame.display.set_mode((screen_x, screen_y), 0, 32)
 pygame.display.set_caption('StarMap')
 
 BLACK = (0, 0, 0)
+GRAY = (100, 100, 100)
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
+NEWBLUE = (43, 67, 244)
 
 DISPLAYSURF.fill(BLACK)
-pygame.draw.circle(DISPLAYSURF, (43, 67, 244), (450, 450), 400, 1)
+pygame.draw.circle(DISPLAYSURF, GRAY, (450, 450), 400, 1)
 
 
 star_data = star_placer()
