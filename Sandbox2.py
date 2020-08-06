@@ -23,8 +23,8 @@ NEWBLUE = (43, 67, 244)
 DISPLAYSURF.fill(BLACK)
 pygame.draw.circle(DISPLAYSURF, GRAY, (450, 450), 400, 1)
 STARFIELDSURF.fill(BLACK)
-pygame.draw.circle(STARFIELDSURF, NIGHTSKY, (field_x / 2 + field_buffer, field_y / 2 + field_buffer), 400, 0)
-pygame.draw.circle(STARFIELDSURF, GRAY, (field_x / 2 + field_buffer, field_y / 2 + field_buffer), 400, 1)
+#pygame.draw.circle(STARFIELDSURF, NIGHTSKY, (field_x / 2 + field_buffer, field_y / 2 + field_buffer), 400, 0)
+#pygame.draw.circle(STARFIELDSURF, GRAY, (field_x / 2 + field_buffer, field_y / 2 + field_buffer), 400, 1)
 
 
 star_data = star_placer()
