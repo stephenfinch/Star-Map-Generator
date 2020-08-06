@@ -14,10 +14,9 @@ Image Size
 
 # ATTRIBUTES OF STARS
 '''
+location - tuple
 Size - int
-Amplitude - int
-*Cluster - bool
-Color (shade%) - float
+Color - RGB
 '''
 
 # ATTRIBUTES OF CONSTELLATIONS
@@ -31,7 +30,7 @@ Size - int
 
 import random
 import math
-from settings_data import Star_Colors, Star_Color_Weight
+from settings_data import *
 
 field_buffer = 50
 field_inner_buffer = 1
@@ -39,13 +38,10 @@ Options_Width = 200
 field_x, field_y = 800, 800
 screen_x, screen_y = field_x + Options_Width + 2 * field_buffer, field_y + 2 * field_buffer
 star_list = []
-number_of_stars = 3000
+number_of_stars = 500000 #was 3000
 star_max_size = 3
 star_colors = ['white', 'red', 'blue', 'yellow'] #star colors data comes from settings page, the shade of that color 
 star_colors_RGB = [(43, 67, 244), (30, 75, 170), (50, 123, 230), (13, 33, 190), (0, 0, 255)]
-ex = 20
-#star_colors_RGB = [(43, 67, 244), (255, 255, 255), (255, 0, 0), (0, 255, 0), (0, 0, 255)]
-#star_colors_RGB = [(154, 175, 255), (202, 215, 255), (248, 247, 255), (255, 244, 234), (255, 242, 161), (255, 196, 111), (255, 96, 96)]
 ex = 40
 
 class Star:
@@ -54,36 +50,58 @@ class Star:
         self.y = y
         self.location = (x,y)
         self.size = int(math.floor(random.random() ** ex * star_max_size))
-        if self.size == 1: self.size = 0
-        self.amp = random.randint(self.size, star_max_size)
-        #self.color = star_colors_RGB[random.randint(0, len(star_colors_RGB) - 1)]
-        #self.color = (43, 67, 244)
-        total_weight = 0
-        keys = []
-        for entry in Star_Color_Weight:
-            total_weight += Star_Color_Weight[entry]
-            keys.append(entry)
-        result = int(math.floor(random.random() * total_weight))
-        current_weight = Star_Color_Weight[keys[0]]
-        index = 0
-        while result > current_weight:
-            index += 1
-            current_weight += Star_Color_Weight[keys[index]]
-        self.color = Star_Colors[keys[index]]
-
-
-    def cluster(self):
-        pass #test without first
+        if self.size == 1:
+            self.size = 0
+        #find better way of getting color data from settings
+        self.color = (43, 67, 244)
+        #self.amp = random.randint(self.size+1, star_max_size)/star_max_size
+        #self.color = [self.color[0]*self.amp, self.color[1]*self.amp, self.color[2]*self.amp]
 
 
 def star_placer():
     stars_added = 0
+    star_list = []
     while stars_added < number_of_stars:
         x, y = random.randint(0, screen_x), random.randint(0, screen_y)
         if is_in_circle(x,y):
             star_list.append(Star(x,y))
             stars_added += 1
     return star_list
+
+'''
+def random_line_placer(stars, groups, lines):
+    lines = random.randint(lines[0], lines[1])
+    output_stars = []
+    for i in range(groups):
+        temp_seed = stars[random.randint(0,len(stars))] #pick a random starting star
+        temp_star_list = []
+        for star in stars:
+            if abs(star.x-temp_seed.x) + abs(star.y-temp_seed.y) <= 50:
+                temp_star_list.append(star.location)
+        for x in range(lines):
+            temp_star_list.append(temp_star_list[random.randint(0,len(temp_star_list))])
+        #for i in range(1, len(temp_star_list) - 1):
+        temp_star_list = temp_star_list[lines:]
+            output_stars.append(((temp_star_list[i - 1]), (temp_star_list[i])))
+    #output_stars.append([temp_star_list[-x:-1]])
+    return output_stars
+'''
+
+def random_line_placer(stars, groups, lines):
+    lines = random.randint(lines[0], lines[1])
+    output_stars = []
+    for _ in range(groups):
+        temp_seed = stars[random.randint(0,len(stars)-1)] #pick a random starting star
+        temp_star_list = []
+        for star in stars:
+            if abs(star.x-temp_seed.x) + abs(star.y-temp_seed.y) <= 100:
+                temp_star_list.append(star.location)
+        for x in range(lines):
+            temp_star_list.append(temp_star_list[random.randint(0,len(temp_star_list)-1)])
+        temp_star_list = temp_star_list[-lines:]
+        output_stars.append((temp_star_list))
+    return output_stars
+
 
 r = field_x / 2 - field_inner_buffer #raduis
 Xcenter = Ycenter = field_x / 2 + field_buffer
@@ -93,3 +111,4 @@ def is_in_circle(x, y):
     return test
 
 
+    

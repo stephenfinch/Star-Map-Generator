@@ -28,15 +28,7 @@ Star_Colors = {
     "Orange": (255, 196, 111),
     "Red": (255, 96, 96)
 }
-Star_Color_Weight = {
-    "Blue": 1,
-    "Blue-White": 4333,
-    "White": 20000,
-    "Yellow-White": 100000,
-    "Yellow": 266667,
-    "Orange": 433333,
-    "Red": 2600000
-}
+
 Rotation_Limit = (-180, 180) #Unknown Limits
 Curve_Limit = (-45, 45) #Unknown Limits
 Text_Limit = (8, 40) #Unknown Limits
