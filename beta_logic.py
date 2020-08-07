@@ -27,7 +27,9 @@ Size - int
 *Curvature - int
 '''
 
-
+import pygame, sys
+from pygame import Surface
+from pygame.locals import *
 import random
 import math
 from settings_data import *
@@ -38,7 +40,7 @@ Options_Width = 200
 field_x, field_y = 800, 800
 screen_x, screen_y = field_x + Options_Width + 2 * field_buffer, field_y + 2 * field_buffer
 star_list = []
-number_of_stars = 500000 #was 3000
+number_of_stars = 5000 #was 3000
 star_max_size = 3
 star_colors = ['white', 'red', 'blue', 'yellow'] #star colors data comes from settings page, the shade of that color 
 star_colors_RGB = [(43, 67, 244), (30, 75, 170), (50, 123, 230), (13, 33, 190), (0, 0, 255)]
@@ -56,6 +58,57 @@ class Star:
         self.color = (43, 67, 244)
         #self.amp = random.randint(self.size+1, star_max_size)/star_max_size
         #self.color = [self.color[0]*self.amp, self.color[1]*self.amp, self.color[2]*self.amp]
+
+class Input:
+    class Button:
+        def __init__(self, name = "", display_name = "",\
+            display_text_color = (0, 0, 0), text = "",\
+            text_active = "", border_size = 1,\
+            border_color = (0, 0, 0), color = (255, 255, 255),\
+            color_active = (255, 255, 255), area = ((0, 0), (0, 0))):
+            self.name = name
+            self.display_name = display_name
+            self.text = text
+            if text_active == "":
+                self.text_active = self.text
+            else:
+                self.text_active = text_active
+            self.border_size = border_size
+            self.border_color = border_color
+            self.color = color
+            self.color_active = color_active
+            self.area = area
+            self.active = False
+        def draw(self, surface):
+            pygame.draw.rect(surface, self.border_color, self.area)
+            new_area = ((self.area[0][0] + self.border_size, self.area[0][1] + self.border_size),\
+            (self.area[1][0] - self.border_size, self.area[1][1] - self.border_size))
+            pygame.draw.rect(surface, self.color, new_area)
+
+
+    class Textbox:
+        def __init__(self, name = "", display_name = "", text = "",\
+            border_size = 1, border_color = (0, 0, 0),\
+            color = (255, 255, 255), area = ((0, 0), (0, 0))):
+            self.name = name
+            self.display_name = display_name
+            self.text = text
+            self.border_size = border_size
+            self.border_color = border_color
+            self.color = color
+            self.area = area
+            self.active = False
+        def draw(self, surface):
+            pygame.draw.rect(surface, self.border_color, self.area)
+            new_area = ((self.area[0][0] + self.border_size, self.area[0][1] + self.border_size),\
+            (self.area[1][0] - self.border_size, self.area[1][1] - self.border_size))
+            pygame.draw.rect(surface, self.color, new_area)
+
+
+    class Slider:
+        def __init__(self, name = "", text = ""):
+            self.name = name
+            self.text = text
 
 
 def star_placer():

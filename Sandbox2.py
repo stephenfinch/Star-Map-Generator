@@ -10,6 +10,7 @@ STARFIELDSURF = Surface((field_x + (2 * field_buffer), field_y + (2 * field_buff
 OPTIONSURF = Surface((screen_x - field_x - 2 * field_buffer, screen_y))                 #Option Bar
 pygame.display.set_caption('StarMap')
 display_changed = False
+sliding = False
 
 BLACK = (0, 0, 0)
 GRAY = (100, 100, 100)
@@ -48,6 +49,9 @@ def draw_surfaces():
     DISPLAYSURF.blit(STARFIELDSURF, field_point)
     DISPLAYSURF.blit(OPTIONSURF, (0, 0))
 
+def options_initial():
+    a=1
+
 draw_initial()
 star_generator()
 draw_surfaces()
@@ -65,6 +69,8 @@ while True:
                         draw_initial()
                         display_changed = True
                     star_generator()
+        if sliding and event.type == MOUSEMOTION:
+            a=1
     if display_changed:
         display_changed = False
         draw_surfaces()
