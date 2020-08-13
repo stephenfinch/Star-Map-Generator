@@ -42,7 +42,7 @@ number_of_stars = 5000 #was 3000
 star_max_size = 3
 star_colors = ['white', 'red', 'blue', 'yellow'] #star colors data comes from settings page, the shade of that color 
 star_colors_RGB = [(43, 67, 244), (30, 75, 170), (50, 123, 230), (13, 33, 190), (0, 0, 255)]
-ex = 10
+ex = 30
 
 class Star:
     def __init__(self, x, y):
@@ -92,10 +92,12 @@ def random_line_placer(stars, groups, lines):
     output_stars = []
     for _ in range(groups):
         temp_seed = stars[random.randint(0,len(stars)-1)] #pick a random starting star
+        temp_seed.size = 3 #this is not working yet. need to fine a way to resize the star once it has been picked
         temp_star_list = []
         for star in stars:
             if abs(star.x-temp_seed.x) + abs(star.y-temp_seed.y) <= 100:
                 temp_star_list.append(star.location)
+                star.size = 3 #this is not working yet. need to fine a way to resize the star once it has been picked
         for x in range(lines):
             temp_star_list.append(temp_star_list[random.randint(0,len(temp_star_list)-1)])
         temp_star_list = temp_star_list[-lines:]

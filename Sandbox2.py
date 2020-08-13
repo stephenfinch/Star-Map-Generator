@@ -32,7 +32,7 @@ def star_generator():
     for star in star_data:
         pygame.draw.circle(STARFIELDSURF, star.color, (star.x, star.y), star.size, 0)
 
-    list_of_lines = random_line_placer(star_data, 8, [3,6])
+    list_of_lines = random_line_placer(star_data, 10, [3,4])
     for line in list_of_lines:
         pygame.draw.aalines(STARFIELDSURF, WHITE, False, line, 1)
 
