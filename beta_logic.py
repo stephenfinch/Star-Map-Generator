@@ -38,11 +38,11 @@ Options_Width = 200
 field_x, field_y = 800, 800
 screen_x, screen_y = field_x + Options_Width + 2 * field_buffer, field_y + 2 * field_buffer
 star_list = []
-number_of_stars = 500000 #was 3000
+number_of_stars = 5000 #was 3000
 star_max_size = 3
 star_colors = ['white', 'red', 'blue', 'yellow'] #star colors data comes from settings page, the shade of that color 
 star_colors_RGB = [(43, 67, 244), (30, 75, 170), (50, 123, 230), (13, 33, 190), (0, 0, 255)]
-ex = 40
+ex = 10
 
 class Star:
     def __init__(self, x, y):
