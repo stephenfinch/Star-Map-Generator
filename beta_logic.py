@@ -68,24 +68,6 @@ def star_placer():
             stars_added += 1
     return star_list
 
-'''
-def random_line_placer(stars, groups, lines):
-    lines = random.randint(lines[0], lines[1])
-    output_stars = []
-    for i in range(groups):
-        temp_seed = stars[random.randint(0,len(stars))] #pick a random starting star
-        temp_star_list = []
-        for star in stars:
-            if abs(star.x-temp_seed.x) + abs(star.y-temp_seed.y) <= 50:
-                temp_star_list.append(star.location)
-        for x in range(lines):
-            temp_star_list.append(temp_star_list[random.randint(0,len(temp_star_list))])
-        #for i in range(1, len(temp_star_list) - 1):
-        temp_star_list = temp_star_list[lines:]
-            output_stars.append(((temp_star_list[i - 1]), (temp_star_list[i])))
-    #output_stars.append([temp_star_list[-x:-1]])
-    return output_stars
-'''
 
 def random_line_placer(stars, groups, lines):
     lines = random.randint(lines[0], lines[1])
